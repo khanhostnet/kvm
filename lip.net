@@ -1,0 +1,11 @@
+#this is the network configuration script.  Please remove this line and the next line to be deploy. or you can modify the 
+#sudosetlipnet.pl script to ignore comment lines.  
+#hostname      #guest IP       #guest netmask   #guest gateway
+
+lip178a1        10.8.84.178     255.255.255.1   10.8.84.1
+lip179a1        10.8.82.154     255.255.255.1   10.8.84.1
+lip180a1        10.8.82.180     255.255.255.1   10.8.84.1
+lip182a1        10.8.82.185     255.255.255.1   10.8.84.1
+lip183a1        10.8.84.212     255.255.255.1   10.8.84.1
+lip184a1        10.8.84.184     255.255.255.1   10.8.84.1
+
