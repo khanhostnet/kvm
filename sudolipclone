@@ -1,0 +1,26 @@
+def sudolipclone()
+#create pv, vg and lv for the lun
+  liparray =File.open("batch.lip").readlines
+    mod="_m"
+    dev="_d"
+    reg="_r"
+    prod="_p"
+  for line in liparray
+  node, oslun, applun, applun2 = line.split(' ')
+# the following line is just to test the print capture
+    rootvg="_rootvg"
+    oslun=`cat tmp/oslun`.chomp
+    mypath=`ls /dev/mapper/|grep #{oslun}`
+    lunpath=mypath.sub(/....$/, '').chomp
+    mapper="/dev/mapper\/" + lunpath
+    mymapper="/dev/mapper\/"
+    oslv="_oslv"
+    appfs="appjfs_1_l"
+    appfs2="appjfs_2_l"
+    puts "cloning #{node} ..."
+    p = IO.popen("sudo virt-clone --original jbossgoldimage --file #{mymapper}#{node}#{rootvg}-#{oslun}#{oslv} --file #{mymapper}#{node}#{prod}#{appfs}-#{applun} --mac RANDOM --name #{node} --prompt").readlines                                                                                                eg}#{appfs}-#{applun} --mac RANDOM --name #{node} --prompt").readlines
+    puts p
+  end
+end
+
+sudolipclone
