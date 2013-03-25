@@ -1,0 +1,55 @@
+#!/usr/bin/expect -f
+
+    #starts guest vm, run benchmarks, poweroff
+
+    set timeout -1
+
+    #Assign a variable to the log file
+
+ #   set log     [lindex $argv 0]
+    set HOST     [lindex $argv 0]
+    set IP     [lindex $argv 1]
+    set MASK     [lindex $argv 2]
+    set GW     [lindex $argv 3]
+
+    #Start the guest VM
+
+#    spawn qemu -nographic -hda guest.disk
+    #spawn virsh console lid126c1
+    spawn sudo virsh console $HOST
+match_max 100000
+expect -exact "Password: "
+send -- "your_passwd\r"
+
+    #Login process
+expect "Escape character is ^]"
+send "\r"
+    expect "login: "
+
+    #Enter username
+
+    send "root\r"
+
+    #Enter Password
+
+    expect "Password: "
+
+    send "rootpasswd\r"
+
+    #Do whatever you want to do with in the guest VM. ( Run a process and write result to log )
+
+
+    expect "# "
+
+    send "/opt/scripts/install/yoursetnetworkscript.pl -ip $IP -netmask $MASK -gateway $GW -hostname $HOST; hostname; \r"
+
+
+    expect "# "
+send -- "/sbin/shutdown -h -t min 1\r"
+expect "
+\r\r
+\rThe system is going down for halt in 1 minute!\r\r
+"
+send -- "^]"
+
+expect eof
