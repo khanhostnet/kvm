@@ -1,0 +1,39 @@
+def sudolipvg()
+#create pv, vg and lv for the lun
+  liparray =File.open("batch.lip").readlines
+    mod="_m"
+    dev="_d"
+    reg="_r"
+    pro="_p"
+  for line in liparray
+  node, oslun, applun, applun2 = line.split(' ')
+# the following line is just to test the print capture
+    rootvg="_rootvg"
+    oslun=`cat tmp/oslun`.chomp
+    mypath=`ls /dev/mapper/|grep #{oslun}`
+    lunpath=mypath.sub(/....$/, '').chomp
+    mapper="/dev/mapper\/" + lunpath
+    oslv="_oslv"
+    appfs="appjfs_1_l"
+    appfs2="appjfs_2_l"
+    puts "create first root lv"
+    p = IO.popen("sudo /opt/scripts/sudo/unixspt/pvcreate #{mapper}#{oslun}").readlines
+    p = IO.popen("sudo /opt/scripts/sudo/unixspt/vgcreate #{node}#{rootvg} #{mapper}#{oslun}").readlines
+    p = IO.popen("sudo /opt/scripts/sudo/unixspt/lvcreate -l 100%PVS -n #{oslun}#{oslv} #{node}#{rootvg}").readlines
+   #now we do applun
+    puts "create first app lv"
+    p = IO.popen("sudo /opt/scripts/sudo/unixspt/pvcreate #{mapper}#{applun}").readlines
+    p = IO.popen("sudo /opt/scripts/sudo/unixspt/vgcreate #{node}#{pro}#{appfs} #{mapper}#{applun}").readlines
+    p = IO.popen("sudo /opt/scripts/sudo/unixspt/lvcreate -l 100%PVS -n #{applun}  #{node}#{pro}#{appfs} #{mapper}#{applun}").readlines
+
+  #now create the second applun
+    puts "creating second app lv"
+    p = IO.popen("sudo /opt/scripts/sudo/unixspt/pvcreate #{mapper}#{applun2}").readlines
+    p = IO.popen("sudo /opt/scripts/sudo/unixspt/vgcreate #{node}#{pro}#{appfs2} #{mapper}#{applun2}").readlines
+    p = IO.popen("sudo /opt/scripts/sudo/unixspt/lvcreate -l 100%PVS -n #{applun2}  #{node}#{pro}#{appfs2} #{mapper}#{applun2}").readlines
+
+  end
+end
+
+
+sudolipvg
