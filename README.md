@@ -37,7 +37,9 @@ creating second app lv
 
 #step 2. clone image
 $ ruby mygem.rb  sudolipclone
+
 call clone
+
 Password:
 
 
