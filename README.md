@@ -24,8 +24,11 @@ lip184a1        e185    e07a
 
 #step 1, create pv, vg and lv
 $ruby mygem.rb  sudolipvg
+
 call sudo create pv, vg and logical volume
+
 create first root lv
+
 Password:
   Writing physical volume data to disk "/dev/mapper/36005076308ffc75d000000000000e18b"
 create first app lv
