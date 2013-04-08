@@ -43,6 +43,11 @@ call clone
 
 Password:
 
+Cloning image-rootvg.img                            |  40 GB     02:18 ...
+Cloning image-datavg.img                            |  30 GB     02:32 ...
+
+Clone 'ip178a1' created successfully.
+
 
 
 
